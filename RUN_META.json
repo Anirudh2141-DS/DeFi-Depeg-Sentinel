@@ -1,0 +1,32 @@
+{
+  "ts": "2025-08-31T23:48:02+00:00",
+  "versions": {
+    "python": "3.12.7",
+    "numpy": "2.1.3",
+    "pandas": "2.3.1",
+    "sklearn": "1.7.1",
+    "xgboost": "3.0.4",
+    "torch": "2.5.1",
+    "web3": "7.13.0"
+  },
+  "config": {
+    "eth_rpc": "https://ethereum-sepolia-rpc.publicnode.com",
+    "mock_mode": false,
+    "lookback": 20,
+    "pools": [
+      "USDC/USDT_univ3",
+      "DAI/USDC_univ3",
+      "3pool_curve"
+    ]
+  },
+  "artifacts": {
+    "live_csv": "C:\\Users\\aniru\\OneDrive\\Desktop\\ML tutorial\\DEFI Depeg sentinel\\live_dataset.csv",
+    "forecast_parquet": "C:\\Users\\aniru\\OneDrive\\Desktop\\ML tutorial\\DEFI Depeg sentinel\\forecast_10m.parquet",
+    "explain_json": "C:\\Users\\aniru\\OneDrive\\Desktop\\ML tutorial\\DEFI Depeg sentinel\\explain.json",
+    "events_json": "C:\\Users\\aniru\\OneDrive\\Desktop\\ML tutorial\\DEFI Depeg sentinel\\events.json"
+  },
+  "counts": {
+    "live_rows": 378,
+    "pools": 6
+  }
+}

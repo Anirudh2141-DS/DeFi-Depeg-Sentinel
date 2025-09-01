@@ -1,0 +1,60 @@
+{
+  "ts": "2025-08-31T23:45:04+00:00",
+  "top_contributors": [
+    "dev (+0.3661\u00b10.0130 AP)",
+    "anom_fused (+0.0070\u00b10.0177 AP)",
+    "dev_roll_std (+0.0000\u00b10.0000 AP)"
+  ],
+  "all_features": [
+    {
+      "feature": "dev",
+      "mean": 0.36614076873552986,
+      "std": 0.013000545213061493
+    },
+    {
+      "feature": "anom_fused",
+      "mean": 0.006987278137830608,
+      "std": 0.01769480385307209
+    },
+    {
+      "feature": "dev_roll_std",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "feature": "tvl_outflow_rate",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "feature": "spot_twap_gap_bps",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "feature": "oracle_ratio",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "feature": "r0_delta",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "feature": "r1_delta",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "feature": "event_severity_max_24h",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "feature": "event_count_24h",
+      "mean": 0.0,
+      "std": 0.0
+    }
+  ]
+}
