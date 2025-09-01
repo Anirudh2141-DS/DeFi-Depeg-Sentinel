@@ -1,0 +1,15 @@
+{
+  "ts": "2025-08-29T21:28:02+00:00",
+  "labeling": {
+    "y_10m": {
+      "dev_thr": 0.005,
+      "fused_thr": 0.9,
+      "horizon": 10
+    },
+    "y_30m": {
+      "dev_thr": 0.005,
+      "fused_thr": 0.9,
+      "horizon": 30
+    }
+  }
+}

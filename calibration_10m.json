@@ -1,0 +1,8 @@
+{
+  "horizon_min": 10,
+  "bins": [],
+  "counts": {
+    "n": 60,
+    "positives": 60
+  }
+}

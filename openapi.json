@@ -1,0 +1,1427 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Depeg Sentinel MCP",
+    "version": "2.0.0"
+  },
+  "paths": {
+    "/ml/score_zoo": {
+      "get": {
+        "tags": [
+          "MCP3: risk-intel"
+        ],
+        "summary": "Parallel anomaly scores",
+        "description": "IF/LOF/OCSVM/CUSUM/AE scores + fused per pool.",
+        "operationId": "api_score_zoo_ml_score_zoo_get",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "x-timestamp",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Timestamp"
+            }
+          },
+          {
+            "name": "x-signature",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Signature"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Pools"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScoreZooResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ml/forecast": {
+      "get": {
+        "tags": [
+          "MCP3: risk-intel"
+        ],
+        "summary": "Risk forecasts",
+        "description": "Return 10m/30m probabilities for tail rows.",
+        "operationId": "api_forecast_ml_forecast_get",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "x-timestamp",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Timestamp"
+            }
+          },
+          {
+            "name": "x-signature",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Signature"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_api_forecast_ml_forecast_get"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForecastResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ml/explain": {
+      "get": {
+        "tags": [
+          "MCP3: risk-intel"
+        ],
+        "summary": "Explainability (current)",
+        "description": "Top contributing features/events for current alerts.",
+        "operationId": "api_explain_ml_explain_get",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "x-timestamp",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Timestamp"
+            }
+          },
+          {
+            "name": "x-signature",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Signature"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExplainResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intel/top_events": {
+      "get": {
+        "summary": "Top Events",
+        "operationId": "top_events_intel_top_events_get",
+        "parameters": [
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Since"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signals/network": {
+      "get": {
+        "summary": "Signals Network",
+        "operationId": "signals_network_signals_network_get",
+        "parameters": [
+          {
+            "name": "pools",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pools"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/policy/decide": {
+      "post": {
+        "tags": [
+          "MCP4: meta-controller"
+        ],
+        "summary": "Decide policy level/actions",
+        "description": "Score gating + escalation rules. Requires auth.",
+        "operationId": "api_policy_decide_policy_decide_post",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "x-timestamp",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Timestamp"
+            }
+          },
+          {
+            "name": "x-signature",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Signature"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/PolicyState"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "State"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolicyDecision"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/policy/retrain_check": {
+      "get": {
+        "tags": [
+          "MCP4: meta-controller"
+        ],
+        "summary": "Retrain gate",
+        "description": "Feature drift and schedule based retrain signal.",
+        "operationId": "api_retrain_check_policy_retrain_check_get",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "x-timestamp",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Timestamp"
+            }
+          },
+          {
+            "name": "x-signature",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Signature"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetrainCheckResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/policy/snapshot": {
+      "get": {
+        "tags": [
+          "MCP4: meta-controller"
+        ],
+        "summary": "Incident snapshot",
+        "description": "One-page JSON + rendered note.",
+        "operationId": "api_snapshot_policy_snapshot_get",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "x-timestamp",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Timestamp"
+            }
+          },
+          {
+            "name": "x-signature",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Signature"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SnapshotResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ack/{h}": {
+      "post": {
+        "summary": "Ack Alert",
+        "description": "Mark the latest pending alert as acknowledged.\nYour Slack button (or CLI) can hit this endpoint before auto-mitigation.",
+        "operationId": "ack_alert_ack__h__post",
+        "parameters": [
+          {
+            "name": "h",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "H"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ml/top_events": {
+      "get": {
+        "tags": [
+          "MCP3: risk-intel"
+        ],
+        "summary": "High-severity events",
+        "operationId": "api_top_events_ml_top_events_get",
+        "parameters": [
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Since"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "x-timestamp",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Timestamp"
+            }
+          },
+          {
+            "name": "x-signature",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Signature"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopEventsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ml/network": {
+      "get": {
+        "tags": [
+          "MCP3: risk-intel"
+        ],
+        "summary": "Cross-pool network signals",
+        "description": "Correlation/lead-lag/neighbor features.",
+        "operationId": "api_network_ml_network_get",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          },
+          {
+            "name": "x-timestamp",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Timestamp"
+            }
+          },
+          {
+            "name": "x-signature",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Signature"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Pools"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NetworkSignalsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_api_forecast_ml_forecast_get": {
+        "properties": {
+          "pools": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pools"
+          },
+          "horizon": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Horizon",
+            "default": [
+              10,
+              30
+            ]
+          }
+        },
+        "type": "object",
+        "title": "Body_api_forecast_ml_forecast_get"
+      },
+      "EventItem": {
+        "properties": {
+          "ts": {
+            "type": "string",
+            "title": "Ts"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "severity": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 1.0,
+            "title": "Severity"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ts",
+          "summary",
+          "severity"
+        ],
+        "title": "EventItem"
+      },
+      "ExplainResponse": {
+        "properties": {
+          "top_contributors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Top Contributors",
+            "default": []
+          }
+        },
+        "type": "object",
+        "title": "ExplainResponse",
+        "examples": [
+          {
+            "top_contributors": [
+              "dev_roll_std\u2191",
+              "spot_twap_gap_bps\u2191",
+              "event_severity_max_24h=5"
+            ]
+          }
+        ]
+      },
+      "ForecastItem": {
+        "properties": {
+          "ts": {
+            "type": "string",
+            "title": "Ts"
+          },
+          "pool": {
+            "type": "string",
+            "title": "Pool"
+          },
+          "anom_fused": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Anom Fused"
+          },
+          "risk_forecast_10m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Risk Forecast 10M"
+          },
+          "risk_forecast_30m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Risk Forecast 30M"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ts",
+          "pool"
+        ],
+        "title": "ForecastItem"
+      },
+      "ForecastResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ForecastItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "ForecastResponse",
+        "examples": [
+          {
+            "items": [
+              {
+                "anom_fused": 0.31,
+                "pool": "DAI/USDC-curve",
+                "risk_forecast_10m": 0.44,
+                "risk_forecast_30m": 0.57,
+                "ts": "2025-08-27T10:22:05+00:00"
+              }
+            ]
+          }
+        ]
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "NetworkSignal": {
+        "properties": {
+          "ts": {
+            "type": "string",
+            "title": "Ts"
+          },
+          "pool": {
+            "type": "string",
+            "title": "Pool"
+          },
+          "neighbor_max_dev": {
+            "type": "number",
+            "title": "Neighbor Max Dev"
+          },
+          "neighbor_avg_anom": {
+            "type": "number",
+            "title": "Neighbor Avg Anom"
+          },
+          "lead_lag_best": {
+            "type": "integer",
+            "title": "Lead Lag Best"
+          },
+          "corr_best": {
+            "type": "number",
+            "title": "Corr Best"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ts",
+          "pool",
+          "neighbor_max_dev",
+          "neighbor_avg_anom",
+          "lead_lag_best",
+          "corr_best"
+        ],
+        "title": "NetworkSignal"
+      },
+      "NetworkSignalsResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/NetworkSignal"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "NetworkSignalsResponse"
+      },
+      "PolicyDecision": {
+        "properties": {
+          "level": {
+            "type": "string",
+            "title": "Level"
+          },
+          "actions": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Actions"
+          },
+          "rationale": {
+            "type": "string",
+            "title": "Rationale"
+          },
+          "requires_ack": {
+            "type": "boolean",
+            "title": "Requires Ack",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "level",
+          "actions",
+          "rationale"
+        ],
+        "title": "PolicyDecision",
+        "examples": [
+          {
+            "actions": [
+              {
+                "rationale": "p10=0.62, fused=0.91",
+                "title": "Prepare mitigation"
+              }
+            ],
+            "level": "orange",
+            "rationale": "Elevated spread and TVL outflow; watch 5m",
+            "requires_ack": false
+          }
+        ]
+      },
+      "PolicyState": {
+        "properties": {
+          "feeds_fresh": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feeds Fresh"
+          },
+          "recent_forecasts": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recent Forecasts"
+          }
+        },
+        "type": "object",
+        "title": "PolicyState"
+      },
+      "RetrainCheckResponse": {
+        "properties": {
+          "should_retrain": {
+            "type": "boolean",
+            "title": "Should Retrain"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "drift": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Drift"
+          }
+        },
+        "type": "object",
+        "required": [
+          "should_retrain",
+          "reason"
+        ],
+        "title": "RetrainCheckResponse"
+      },
+      "ScoreZooItem": {
+        "properties": {
+          "ts": {
+            "type": "string",
+            "title": "Ts"
+          },
+          "pool": {
+            "type": "string",
+            "title": "Pool"
+          },
+          "z_if": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Z If"
+          },
+          "z_lof": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Z Lof"
+          },
+          "z_ocsvm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Z Ocsvm"
+          },
+          "z_cusum": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Z Cusum"
+          },
+          "z_ae": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Z Ae"
+          },
+          "z_ae_seq": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Z Ae Seq"
+          },
+          "anom_fused": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Anom Fused"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ts",
+          "pool"
+        ],
+        "title": "ScoreZooItem"
+      },
+      "ScoreZooResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ScoreZooItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "ScoreZooResponse",
+        "examples": [
+          {
+            "items": [
+              {
+                "anom_fused": 0.18,
+                "pool": "USDC/USDT-uni",
+                "ts": "2025-08-27T10:22:05+00:00",
+                "z_ae": 0.04,
+                "z_ae_seq": 0.18,
+                "z_cusum": 0.1,
+                "z_if": 0.12,
+                "z_lof": 0.08,
+                "z_ocsvm": 0.05
+              }
+            ]
+          }
+        ]
+      },
+      "SnapshotResponse": {
+        "properties": {
+          "note": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Note"
+          },
+          "report": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Report"
+          }
+        },
+        "type": "object",
+        "required": [
+          "note"
+        ],
+        "title": "SnapshotResponse"
+      },
+      "TopEventsResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/EventItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "TopEventsResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{"ts": "2025-08-28T04:29:05+00:00", "run_id": "run-20250828T040548", "kind": "housekeeping_started", "thread": "housekeeping"}
+{"ts": "2025-08-28T04:29:06+00:00", "run_id": "run-20250828T040548", "kind": "contract_export", "json": "C:\\Users\\aniru\\OneDrive\\Desktop\\ML tutorial\\DEFI Depeg sentinel\\contract\\openapi.json", "md": "C:\\Users\\aniru\\OneDrive\\Desktop\\ML tutorial\\DEFI Depeg sentinel\\contract\\contract.md"}
+{"ts": "2025-08-28T04:29:06+00:00", "run_id": "run-20250828T040548", "kind": "archive_daily", "zip": "C:\\Users\\aniru\\OneDrive\\Desktop\\ML tutorial\\DEFI Depeg sentinel\\archive\\20250827.zip", "created": true, "pruned_raw": 0}
+{"ts": "2025-08-28T04:29:29+00:00", "run_id": "run-20250828T040548", "kind": "contract_export", "json": "C:\\Users\\aniru\\OneDrive\\Desktop\\ML tutorial\\DEFI Depeg sentinel\\contract\\openapi.json", "md": "C:\\Users\\aniru\\OneDrive\\Desktop\\ML tutorial\\DEFI Depeg sentinel\\contract\\contract.md"}
